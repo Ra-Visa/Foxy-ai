@@ -1,0 +1,8 @@
+pyTelegramBotAPI
+openai-whisper
+edge-tts
+translators
+moviepy
+imageio-ffmpeg
+pillow
+torch
