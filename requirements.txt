@@ -7,3 +7,4 @@ imageio-ffmpeg
 pillow
 torch
 flask
+yt-dlp
