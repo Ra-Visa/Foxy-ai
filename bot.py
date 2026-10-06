@@ -43,8 +43,6 @@ def send_welcome(message):
 
 @bot.message_handler(func=lambda message: message.text and message.text.startswith(("http://", "https://")))
 def handle_link(message):
-    url = message.text.strip()
-    
     # បង្កើតប៊ូតុងជ្រើសរើស (MP3 ឬ MP4)
     markup = InlineKeyboardMarkup()
     markup.row(
@@ -52,7 +50,6 @@ def handle_link(message):
         InlineKeyboardButton("🎬 MP4 (Video)", callback_data=f"mp4|{message.chat.id}")
     )
     
-    # រក្សាទុក URL បណ្តោះអាសន្ន
     bot.reply_to(message, "🎬 **សូមជ្រើសរើសប្រភេទ Format ដែលអ្នកចង់ទាញយក៖**", reply_markup=markup, parse_mode="Markdown")
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith(("mp3|", "mp4|")))
@@ -116,31 +113,4 @@ def callback_download(call):
             os.remove(file_path)
 
 # ==========================================
-# 4. AUTO-RECONNECT & CONFLICT PREVENTION
-# ==========================================
-def start_bot_polling():
-    while True:
-        try:
-            print("🤖 កំពុងសម្អាត Webhook ចាស់ៗ និងរៀបចំចាប់ផ្តើម Polling...")
-            bot.remove_webhook()
-            time.sleep(1)
-            
-            print("🚀 Telegram Bot ត្រូវបានចាប់ផ្តើមដំណើរការ (Polling)...")
-            bot.infinity_polling(skip_pending_sessions=True, timeout=60, long_polling_timeout=60)
-        except Exception as e:
-            print(f"⚠️ ជួបប្រទះ Error: {e}")
-            print("🔄 កំពុងរង់ចាំ 5 វិនាទី ដើម្បី Reconnect ឡើងវិញ...")
-            time.sleep(5)
-
-# ==========================================
-# 5. ENTRY POINT
-# ==========================================
-if __name__ == "__main__":
-    # បើក Flask Web Server លើ Background Thread
-    flask_thread = threading.Thread(target=run_flask)
-    flask_thread.daemon = True
-    flask_thread.start()
-
-    # ដំណើរការ Telegram Bot Polling លើ Main Thread
-    start_bot_polling()
-    
+        
