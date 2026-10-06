@@ -6,5 +6,5 @@ moviepy
 imageio-ffmpeg
 pillow
 torch
-flask
+Flask
 yt-dlp
