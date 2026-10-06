@@ -6,3 +6,4 @@ moviepy
 imageio-ffmpeg
 pillow
 torch
+flask
